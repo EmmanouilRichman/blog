@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var dbURI = 'mongodb://localhost/blog';
+var dbURI = 'mongodb://blogUser:password@localhost/blog';
 mongoose.connect(dbURI, {useNewUrlParser: true});
 
 
