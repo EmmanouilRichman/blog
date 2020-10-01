@@ -2,10 +2,12 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var logger = require('morgan')
+var bodyParser = require('body-parser');
+require('./app_api/models/db');
+
 var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
-require('./app_server/models/db', {useUnifiedTopology: true});
 
 var app = express();
 
