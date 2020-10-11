@@ -13,15 +13,15 @@
     		<h1><%= title %></h1>
 	    </div>
 	    <div class='row'>
-	    		<% for(var i = 0; i < blogEntries.length; i++) { %>
+	    		<% for(var i = 0; i < blogs.length; i++) { %>
 				<div class='col-md 3 col-sm-6'>
 	    			<div class='card'>
 					<div class="card-body">
-						<h5 class="card-title"><%= blogEntries[i].blog_title %></h5>
-						<p class="card-text"><%= blogEntries[i].blog_text %></p>
-						<p class="card-text"><i><%= blogEntries[i].createdOn %></i></p>
-						<a href="/blogedit" class="card-link"><i class="fas fa-edit"></i></a>
-						<a href="/blogdelete" class="card-link"><i class="fas fa-trash-alt"></i></a>
+						<h5 class="card-title"><%= blogs[i].blog_title %></h5>
+						<p class="card-text"><%= blogs[i].blog_text %></p>
+						<p class="card-text"><i><%= blogs[i].createdOn %></i></p>
+						<a href="/blogedit/<%= blogs[i]._id %>" class="card-link"><i class="fas fa-edit"></i></a>
+						<a href="/blogdelete/<%= blogs[i]._id %>" class="card-link"><i class="fas fa-trash-alt"></i></a>
 
 					</div>
 				</div>

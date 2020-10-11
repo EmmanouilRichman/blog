@@ -41,7 +41,7 @@ var buildBlogList = function(req, res, results) {
 
 
 module.exports.blogReturnOne = function (req, res) {
- if (req.params && req.params.locationid) {
+ if (req.params && req.params.blogid) {
     Blog
       .findById(req.params.blogid)
       .exec(function(err, blog) {
@@ -86,11 +86,11 @@ module.exports.blogAddOne = function (req, res) {
 };
 
 module.exports.blogUpdate = function (req, res) {
-   console.log("Updating a book entry with id of " + req.params.id);
+   console.log("Updating a book entry with id of " + req.params.blogid);
     Blog
   	  .findOneAndUpdate(
-	     { _id: req.params.id },
- 	     { $set: {"Blog_title": req.body.blog_title, "blog_text": req.body.blog_text}},
+	     { _id: req.params.blogid },
+ 	     { $set: {"blog_title": req.body.blog_title, "blog_text": req.body.blog_text}},
 	     function(err, response) {
 	         if (err) {
 	  	         sendJSONresponse(res, 400, err);
@@ -102,10 +102,10 @@ module.exports.blogUpdate = function (req, res) {
 };
 
 module.exports.blogDelete = function (req, res) {
-  console.log("Deleting blog entry with id of " + req.params.id);
+  console.log("Deleting blog entry with id of " + req.params.blogid);
   console.log(req.body);
     Blog
-        .findByIdAndRemove(req.params.id)
+        .findByIdAndRemove(req.params.blogid)
         .exec (
             function(err, response) {
                 if (err) {
