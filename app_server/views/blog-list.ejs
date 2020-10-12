@@ -19,7 +19,8 @@
 					<div class="card-body">
 						<h5 class="card-title"><%= blogs[i].blog_title %></h5>
 						<p class="card-text"><%= blogs[i].blog_text %></p>
-						<p class="card-text"><i><%= blogs[i].createdOn %></i></p>
+						<p class="card-text"><i><%=new Date(blogs[i].createdOn).toLocaleDateString();%> ,
+						 <%=new Date(blogs[i].createdOn).toLocaleTimeString();%> </i></p>
 						<a href="/blogedit/<%= blogs[i]._id %>" class="card-link"><i class="fas fa-edit"></i></a>
 						<a href="/blogdelete/<%= blogs[i]._id %>" class="card-link"><i class="fas fa-trash-alt"></i></a>
 
