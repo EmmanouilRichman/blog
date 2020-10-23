@@ -1,6 +1,6 @@
 var request = require('request');
 var apiOptions = {
-  server : "http://18.188.58.166" // Change as needed
+	server : "http://34.226.201.110" // Change as needed
 };         
 
 module.exports.blogadd = function(req, res){
