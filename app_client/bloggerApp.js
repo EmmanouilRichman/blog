@@ -1,4 +1,4 @@
-var app = angular.module('blogApp', ['ngRoute']);
+var app = angular.module('bloggerApp', ['ngRoute']);
 
 //configuring routes
 app.config(function($routeProvider) {
@@ -32,6 +32,7 @@ app.config(function($routeProvider) {
 		 controller: 'deleteCtrl',
 		 controllerAs: 'vm'
 	})
+
       .otherwise({redirectTo: '/'});
     });
 
