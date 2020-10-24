@@ -64,7 +64,7 @@ app.controller('listCtrl',['$http', '$scope',  function listCtrl($http, $scope){
 		});
 }]);
 
-app.controller('addCtrl',[ '$http', '$state', function addCtrl($http, $state) {
+app.controller('addCtrl',[ '$http', '$location', function addCtrl($http, $location) {
 	var vm = this;
     	vm.blog = {};
     	vm.title = "Emmanouil Richman Blog Site";
@@ -79,8 +79,8 @@ app.controller('addCtrl',[ '$http', '$state', function addCtrl($http, $state) {
 
 	addOneBlog($http, data)
 		.then(function successCallBack(data) {
-		    console.log(data);
-		    $state.go('/bloglist');
+		     console.log(data);
+		     $location.path('/bloglist');
 		},
 		function errorCallBack(e) {
 		    console.log(e);
