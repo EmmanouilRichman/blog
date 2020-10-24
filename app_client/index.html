@@ -58,8 +58,8 @@
 								<h5 class="card-title">{{blog.blog_title}}</h5>
 								<p class="card-text">{{blog.blog_text}}</p>
 								<p class="card-text"><i>{{blog.createdOn}}</i></p>
-								<a href="/blogedit/{{blog.blogid}}" class="card-link"><i class="fas fa-edit"></i></a>
-								<a href="/blogdelete/{{blog.blogid}}" class="card-link"><i class="fas fa-trash-alt"></i></a>
+								<a href="/blogedit/{{blog._id}}" class="card-link"><i class="fas fa-edit"></i></a>
+								<a href="/blogdelete/{{blog._id}}" class="card-link"><i class="fas fa-trash-alt"></i></a>
 							</div>
 						</div>
 					</div>
@@ -85,6 +85,30 @@
   				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 			</div>
+		</script>
+
+		<script type="text/ng-template" id="pages/blogdelete.html">
+			<div class = "container">
+	    			<div class="jumbotron">
+					<h1>{{vm.title}}</h1>
+					<h4>{{vm.message}}</h4>
+				</div>
+					<form name="userForm" ng-Controller="deleteCtrl" ng-submit="vm.onSubmit()">
+						<div class="form-group">
+							<label for="blog_title">Blog Title:</label>
+							<input type="text" class="form-control"  id="blog_title" name="blog_title" value= "{{blog.blog_title}}" readonly>
+						</div>
+						<div class="form-group">
+							<label for="blog_text">Blog Text:</label>
+							<input type="text" class="form-control" id="blog_text" name="blog_text" value= "{{blog.blog_text}}" readonly>
+						</div>
+						<button type="submit" class="btn btn-danger">Delete post</button>
+						<a href="/bloglist" > Cancel </a>
+					</form>
+			</div>
+
+
+
 		</script>
 		<!-- Angular View (dynamic content goes here) -->
 		

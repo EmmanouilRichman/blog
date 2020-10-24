@@ -119,30 +119,28 @@ app.controller('editCtrl', [ '$http', '$routeParams', '$state', function editCtr
     }
 }]);
 
-app.controller('deleteCtrl', [ '$http', '$routeParams', '$state', function deleteCtrl($http, $routeParams, $state) {
+app.controller('deleteCtrl', [ '$http', '$routeParams', '$scope','$location', function deleteCtrl($http, $routeParams, $scope, $location) {
     var vm = this;
     vm.title = "Emmanouil Richman Blog Site";
     vm.message = "Delete Your Blog";
-    vm.blog = {};
     vm.id = $routeParams.id;
     readOneBlog($http, vm.id)
-    	.success(function(data) {
-    		vm.blog = data;
+    	.then(function(data) {
+    		$scope.blog = data.data;
     		vm.message = "Are you sure you wish to delete this blog?"
-    })
-    .error(function(e) {
+	},
+    	function(e) {
     	vm.message = "Could not get blog with id: " + vm.id;
-    })
+    });
 
     vm.onSubmit = function() {
-    	var data = vm.blog;
 
-    	deleteOneBlog($http, vm.id)
-    		.success(function(data) {
+    	deleteOneBlog($http,vm.id)
+    		.then(function(data) {
     		    vm.message = "Blog Deleted Successfully!";
-    		    $state.go('/bloglist');
-    		})
-    		.error(function(e) {
+    		    $location.path('/bloglist');
+    		},
+    		function(e) {
     			vm.message = "Could not update blog with id: " + vm.id;
     		});
     }
