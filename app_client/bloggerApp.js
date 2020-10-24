@@ -88,32 +88,31 @@ app.controller('addCtrl',[ '$http', '$location', function addCtrl($http, $locati
         };
 }]);
 
-app.controller('editCtrl', [ '$http', '$routeParams', '$state', function editCtrl($http, $routeParams, $state) {
+app.controller('editCtrl', [ '$http', '$routeParams', '$scope', '$location',  function editCtrl($http, $routeParams, $scope, $location) {
     var vm = this;
     vm.title = "Emmanouil Richman Blog Site";
     vm.message = "Edit Your Blog";
-    vm.blog = {};
     vm.id = $routeParams.id;
 
     readOneBlog($http, vm.id)
-    	.success(function(data) {
-    		vm.blog = data;
-    })
-    .error(function(e) {
+    	.then(function(data) {
+    		$scope.blog = data.data;
+    },
+    function(e) {
     	vm.message = "Could not get blog with id: " + vm.id;
-    })
+    });
 
     vm.onSubmit = function() {
     	var data = {};
-    	data.blogTitle = userForm.blogTitle.value;
-    	data.blogText = userForm.blogText.value;
+    	data.blog_title = userForm.blog_title.value;
+    	data.blog_text = userForm.blog_text.value;
 
     	updateOneBlog($http, data, vm.id)
-    		.success(function(data) {
+    		.then(function(data) {
     		    vm.message = "Blog Updated!";
-    		    $state.go('/bloglist');
-    		})
-    		.error(function(e) {
+    		    $location.path('/bloglist');
+    		},
+    		function(e) {
     			vm.message = "Could not update blog with id: " + vm.id;
     		});
     }

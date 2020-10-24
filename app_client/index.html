@@ -110,6 +110,27 @@
 
 
 		</script>
+
+		<script type="text/ng-template" id="pages/blogedit.html">
+			<div class = "container">
+	    			<div class="jumbotron">
+    					<h1>{{vm.title}}</h1>
+					<h4>{{vm.message}}</h4>
+	   			 </div>
+
+	    		<form name="userForm" ng-Controller="editCtrl" ng-submit="vm.onSubmit()">
+				<div class="form-group">
+					<label for="blog_title">Blog Title:</label>
+					<input type="text" class="form-control"  id="blog_title" name="blog_title" value= "{{blog.blog_title}}">
+				</div>
+				<div class="form-group">
+					<label for="blog_text">Blog Text:</label>
+					<input type="text" class="form-control" id="blog_text" name="blog_text" value= "{{blog.blog_text}}">
+				</div>
+				<button type="submit" class="btn btn-dark">Save post</button>
+	  		 </form>
+	   	</div>
+		</script>
 		<!-- Angular View (dynamic content goes here) -->
 		
 		<div ng-view ></div>
