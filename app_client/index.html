@@ -3,14 +3,16 @@
 	<head>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
    		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-    		<script src="/lib/angular.min.js"></script>
-    		<script src="/lib/angular-route.min.js"></script>  
-    		<script src="/lib/angular-ui-router.min.js"></script>
-
+		<script
+      		src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.1/angular.min.js"
+      		integrity="sha512-QFmqHpmYymVcJudvGsU3IDBfwnTOdfmY42YUwyORin2namhG6FCku8MiSc6igF2OIwChlEuFkvuwNo6pbMOUSg=="
+      		crossorigin="anonymous"></script>
+    		<script
+      		src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.1/angular-route.min.js"
+      		integrity="sha512-pW5u94XNfb4HGKqQ9XUdZzAlfGSPWkha6VYghlIGqCBNlYqyPt1wo5m8jf2So8mNTodVwj1CQIayRP+x2Q5c+g=="
+      		crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.28/angular-ui-router.min.js"> </script>
   	</head>
   	<body>
 		<!-- Navigation -->
@@ -23,10 +25,10 @@
   			<div class="collapse navbar-collapse" id="navbarSupportedContent">
     				<ul class="navbar-nav mr-auto">
       					<li class="nav-item">
-        					<a class="nav-link" href="#/blogadd"><i class="fas fa-plus-circle"></i> Blog Add</a>
+        					<a class="nav-link" href="/blogadd"><i class="fas fa-plus-circle"></i> Blog Add</a>
       					</li>	
       					<li class="nav-item">
-        					<a class="nav-link" href="#/bloglist"> <i class="fas fa-list-alt"></i> Blog List</a>
+        					<a class="nav-link"href="/bloglist"> <i class="fas fa-list-alt"></i> Blog List</a>
       					</li>
     				</ul>
 			</div>
@@ -34,14 +36,62 @@
 
 		<!-- Angular Templates -->
 		<script type="text/ng-template" id="pages/home.html">
-			<h1>{{vm.title}}</h1>
-			<h4>{{vm.message}}</h4>
+			<div class="container">
+	   	 		<div class = jumbotron>
+					<h1>{{vm.title}}</h1>
+					<h4>{{vm.message}}</h4>
+	    			</div>
+   			 </div>
    	 	</script>
 
+		<script type="text/ng-template" id="pages/bloglist.html">
+			<div class="container">
+				<div class= jumbotron>
+					<h1>{{vm.title}}</h1>
+					<h4>{{vm.message}}</h4>
+				</div>
+			</div>
+			 <div class='row'>
+					<div ng-repeat="blog in blogs" class='col-md 3 col-sm-6'>
+						<div class='card'>
+							<div class="card-body">
+								<h5 class="card-title">{{blog.blog_title}}</h5>
+								<p class="card-text">{{blog.blog_text}}</p>
+								<p class="card-text"><i>{{blog.createdOn}}</i></p>
+								<a href="/blogedit/{{blog.blogid}}" class="card-link"><i class="fas fa-edit"></i></a>
+								<a href="/blogdelete/{{blog.blogid}}" class="card-link"><i class="fas fa-trash-alt"></i></a>
+							</div>
+						</div>
+					</div>
+			</div>
+    		</script>
+
+		<script type="text/ng-template" id="pages/blogadd.html">
+			<div class = "container">
+	    			<div class = "jumbotron">
+					<h1>{{vm.title}}</h1>
+					<h4>{{vm.message}}</h4>
+	    		</div>
+			<form name="userForm" ng-Controller="addCtrl" ng-submit="vm.onSubmit()">
+  				<div class="form-group">
+    					<label for="blog_title">Blog Title:</label>
+    					<input type="text" class="form-control" placeholder="Enter Blog Title" id="blog_title" name="blog_title">
+  				</div>	
+  				<div class="form-group">
+    					<label for="blog_text">Blog Text:</label>
+    					<input type="text" class="form-control" placeholder="Enter Blog Text" id="blog_text" name="blog_text">
+  				</div>
+  				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+			</div>
+		</script>
 		<!-- Angular View (dynamic content goes here) -->
 		
-		<div ng-view></div>
+		<div ng-view ></div>
 
 		<script src="/bloggerApp.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   	</body>
 </html>

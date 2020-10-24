@@ -1,7 +1,11 @@
-var app = angular.module('bloggerApp', ['ngRoute']);
+var app = angular.module('bloggerApp', ['ngRoute', 'ui.router']);
 
 //configuring routes
-app.config(function($routeProvider) {
+app.config(function ($locationProvider, $routeProvider) {
+    $locationProvider.html5Mode({
+    enabled:true,
+    requireBase: false
+ });
   $routeProvider
       .when('/', {
 	      	  templateUrl: 'pages/home.html',
@@ -43,27 +47,29 @@ app.controller('homeCtrl', function homeCtrl() {
     	vm.message = "Welcome to my blog site!";
 });
 
-app.controller('listCtrl', function listCtrl($http){
+app.controller('listCtrl',['$http', '$scope',  function listCtrl($http, $scope){
 	var vm = this;
 	vm.title = "Emmanouil Richman Blog Site";
 	vm.message = "Blog List";
+	
 
 	getAllBlogs($http)
-		.success(function(data){
-			vm.blogs = data;
+		.then(function (data){
+			$scope.blogs = data.data;
+			console.log(data);
 			vm.message = "Found blogs";
-		})
-		.error(function(e){
+		},
+		function (e){
 			vm.message = "Could not get blog list";
 		});
-});
+}]);
 
 app.controller('addCtrl',[ '$http', '$state', function addCtrl($http, $state) {
 	var vm = this;
     	vm.blog = {};
     	vm.title = "Emmanouil Richman Blog Site";
     	vm.message = "Add A Blog";
-
+	
          vm.onSubmit = function() {
 
 	var data = vm.blog;
@@ -72,11 +78,11 @@ app.controller('addCtrl',[ '$http', '$state', function addCtrl($http, $state) {
 	data.blog_text = userForm.blog_text.value;
 
 	addOneBlog($http, data)
-		.success(function(data) {
+		.then(function successCallBack(data) {
 		    console.log(data);
 		    $state.go('/bloglist');
-		})
-		.error(function(e) {
+		},
+		function errorCallBack(e) {
 		    console.log(e);
 		});
         };
