@@ -37,6 +37,18 @@ app.config(function ($locationProvider, $routeProvider) {
 		 controllerAs: 'vm'
 	})
 
+	.when('/register', {
+        templateUrl: '/common/auth/register.html',
+        controller: 'registerCtrl',
+        controllerAs: 'vm'
+      })
+
+     	.when('/login', {
+        templateUrl: '/common/auth/login.html',
+        controller: 'loginCtrl',
+        controllerAs: 'vm'
+      })
+
       .otherwise({redirectTo: '/'});
     });
 
@@ -146,6 +158,30 @@ app.controller('deleteCtrl', [ '$http', '$routeParams', '$scope','$location', fu
 
 }]);
 
+app.directive('navigation', function() {
+    return {
+      restrict: 'EA',
+      templateUrl: '/common/nav/navigation.html',
+      controller: 'NavigationController',
+      controllerAs: 'vm'
+    };
+});
+
+app.controller('NavigationController', ['$state', '$location', 'authentication', function NavigationController($state, $location, authentication) {
+    var vm = this;
+    vm.currentPath = $location.path();
+    vm.currentUser = function()  {
+        return authentication.currentUser();
+    }
+    vm.isLoggedIn = function() {
+        return authentication.isLoggedIn();
+    }
+    vm.logout = function() {
+      authentication.logout();
+      $location.path('/');
+    };
+}]);
+
 
 /* REST Functions */
 function getAllBlogs($http) {
@@ -156,14 +192,14 @@ function readOneBlog($http, blogid) {
     return $http.get('/api/blogs/' + blogid);
 }
 
-function updateOneBlog($http, data, blogid) {
-    return $http.put('/api/blogs/' + blogid , data);
+function updateOneBlog($http, data, blogid, authentication) {
+    return $http.put('/api/blogs/' + blogid , data, { headers: { Authorization: 'Bearer '+ authentication.getToken() }});
 }
 
-function addOneBlog($http, data) {
-    return $http.post('/api/blogs', data);
+function addOneBlog($http, data, authentication) {
+    return $http.post('/api/blogs', data, { headers: { Authorization: 'Bearer '+ authentication.getToken() }});
 }
 
-function deleteOneBlog($http, blogid) {
-    return $http.delete('/api/blogs/' + blogid);
+function deleteOneBlog($http, blogid, authentication) {
+    return $http.delete('/api/blogs/' + blogid, { headers: { Authorization: 'Bearer '+ authentication.getToken() }});
 }
