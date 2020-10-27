@@ -1,10 +1,13 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan')
 var bodyParser = require('body-parser');
+var passport = require('passport');
 require('./app_api/models/db');
+require('./app_api/config/passport');
 
 //var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
@@ -20,9 +23,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'app_client'))); 
-
-//app.use('/', routes);
+app.use(express.static(path.join(__dirname, 'app_client')));
+app.use(passport.initialize());
 app.use('/api', routesApi);
 
 // Added per Lab 5 - Angular
