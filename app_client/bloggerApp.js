@@ -15,7 +15,7 @@ app.service('authentication', authentication);
 
         var register = function(user) {
             console.log('Registering user ' + user.email + ' ' + user.password);
-            return $http.post('/api/register', user).success(function(data){
+            return $http.post('/api/register', user).then(function(data){
                 saveToken(data.data.token);
           });
         };
@@ -23,8 +23,8 @@ app.service('authentication', authentication);
         var login = function(user) {
            console.log('Attempting to login user ' + user.email + ' ' + user.password);
             return $http.post('/api/login', user).then(function(data) {
-              saveToken(data.data.token);
-           });
+            	 saveToken(data.data.token);
+		    });
         };
 
         var logout = function() {
@@ -230,9 +230,7 @@ app.controller('deleteCtrl', [ '$http', '$routeParams', '$scope','$location', fu
 app.controller('loginCtrl', [ '$http', '$location', 'authentication', function loginCtrl($htttp, $location, authentication) {
     var vm = this;
 
-    vm.pageHeader = {
-      title: 'Sign in to Blogger'
-    };
+    vm.title = 'Sign in to Blogger';
 
     vm.credentials = {
       email : "",
@@ -246,7 +244,8 @@ app.controller('loginCtrl', [ '$http', '$location', 'authentication', function l
       if (!vm.credentials.email || !vm.credentials.password) {
            vm.formError = "All fields required, please try again";
         return false;
-      } else {
+      } 
+	  else {
            vm.doLogin();
       }
     };
@@ -258,16 +257,14 @@ app.controller('loginCtrl', [ '$http', '$location', 'authentication', function l
         .then(function(){
           $location.search('page', null); 
           $location.path(vm.returnPage);
-        });
-    };
+	},function(e){ vm.formError = e.data.message;});
+        };
  }]);
 
 app.controller('registerCtrl', [ '$http', '$location', 'authentication', function registerCtrl($htttp, $location, authentication) {
     var vm = this;
 
-    vm.pageHeader = {
-      title: 'Create a new Blooger account'
-    };
+    vm.title = 'Create a new Blogger account'
 
     vm.credentials = {
       name : "",
@@ -291,14 +288,10 @@ app.controller('registerCtrl', [ '$http', '$location', 'authentication', functio
       vm.formError = "";
       authentication
         .register(vm.credentials)
-        .error(function(err){
-          vm.formError = "Error registering. Try again with a different email address."
-          //vm.formError = err;
-        })
         .then(function(){
           $location.search('page', null);
-          $location.path(vm.returnPage);
-        });
+          $location.path('/');
+	 },function(e){vm.formError = "Email Already Registered"});
     };
 }]);
 

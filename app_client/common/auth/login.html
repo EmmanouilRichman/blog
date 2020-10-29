@@ -1,5 +1,9 @@
 
 <div class="container">
+	<div class="jumbotron">
+		<h1>{{vm.title}}</h1>
+	</div>
+
  	<page-header content="vm.pageHeader"></page-header>
       			<p class="lead">Not a member? Please <a href="/register?page={{ vm.returnPage }}">register</a> first.</p>
       			<form ng-submit="vm.onSubmit()">
