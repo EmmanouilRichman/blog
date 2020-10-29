@@ -124,10 +124,14 @@ app.controller('homeCtrl', function homeCtrl() {
     	vm.message = "Welcome to my blog site!";
 });
 
-app.controller('listCtrl',['$http', '$scope',  function listCtrl($http, $scope){
+app.controller('listCtrl',['$http', '$scope', 'authentication',  function listCtrl($http, $scope, authentication){
 	var vm = this;
 	vm.title = "Emmanouil Richman Blog Site";
 	vm.message = "Blog List";
+
+	 vm.isLoggedIn = function() {
+        	return authentication.isLoggedIn();
+   	 }
 	
 
 	getAllBlogs($http)

@@ -44,8 +44,8 @@
 								<h5 class="card-title">{{blog.blog_title}}</h5>
 								<p class="card-text">{{blog.blog_text}}</p>
 								<p class="card-text"><i>{{blog.createdOn | date:'short' }}</i></p>
-								<a href="/blogedit/{{blog._id}}" class="card-link"><i class="fas fa-edit"></i></a>
-								<a href="/blogdelete/{{blog._id}}" class="card-link"><i class="fas fa-trash-alt"></i></a>
+								<a ng-show="vm.isLoggedIn()" href="/blogedit/{{blog._id}}" class="card-link"><i class="fas fa-edit"></i></a>
+								<a ng-show="vm.isLoggedIn()" href="/blogdelete/{{blog._id}}" class="card-link"><i class="fas fa-trash-alt"></i></a>
 							</div>
 						</div>
 					</div>
