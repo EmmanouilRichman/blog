@@ -145,7 +145,7 @@ app.controller('listCtrl',['$http', '$scope', 'authentication',  function listCt
 		});
 }]);
 
-app.controller('addCtrl',[ '$http', '$location', function addCtrl($http, $location) {
+app.controller('addCtrl',[ '$http', '$location', 'authentication' , function addCtrl($http, $location, authentication) {
 	var vm = this;
     	vm.blog = {};
     	vm.title = "Emmanouil Richman Blog Site";
@@ -158,7 +158,7 @@ app.controller('addCtrl',[ '$http', '$location', function addCtrl($http, $locati
 	data.blog_title = userForm.blog_title.value;
 	data.blog_text = userForm.blog_text.value;
 
-	addOneBlog($http, data)
+	addOneBlog($http, data, authentication)
 		.then(function successCallBack(data) {
 		     console.log(data);
 		     $location.path('/bloglist');
@@ -169,7 +169,7 @@ app.controller('addCtrl',[ '$http', '$location', function addCtrl($http, $locati
         };
 }]);
 
-app.controller('editCtrl', [ '$http', '$routeParams', '$scope', '$location',  function editCtrl($http, $routeParams, $scope, $location) {
+app.controller('editCtrl', [ '$http', '$routeParams', '$scope', '$location', 'authentication',  function editCtrl($http, $routeParams, $scope, $location, authentication) {
     var vm = this;
     vm.title = "Emmanouil Richman Blog Site";
     vm.message = "Edit Your Blog";
@@ -188,7 +188,7 @@ app.controller('editCtrl', [ '$http', '$routeParams', '$scope', '$location',  fu
     	data.blog_title = userForm.blog_title.value;
     	data.blog_text = userForm.blog_text.value;
 
-    	updateOneBlog($http, data, vm.id)
+    	updateOneBlog($http, data, vm.id, authentication)
     		.then(function(data) {
     		    vm.message = "Blog Updated!";
     		    $location.path('/bloglist');
@@ -199,7 +199,7 @@ app.controller('editCtrl', [ '$http', '$routeParams', '$scope', '$location',  fu
     }
 }]);
 
-app.controller('deleteCtrl', [ '$http', '$routeParams', '$scope','$location', function deleteCtrl($http, $routeParams, $scope, $location) {
+app.controller('deleteCtrl', [ '$http', '$routeParams', '$scope','$location', 'authentication', function deleteCtrl($http, $routeParams, $scope, $location, authentication) {
     var vm = this;
     vm.title = "Emmanouil Richman Blog Site";
     vm.message = "Delete Your Blog";
@@ -215,7 +215,7 @@ app.controller('deleteCtrl', [ '$http', '$routeParams', '$scope','$location', fu
 
     vm.onSubmit = function() {
 
-    	deleteOneBlog($http,vm.id)
+    	deleteOneBlog($http,vm.id, authentication)
     		.then(function(data) {
     		    vm.message = "Blog Deleted Successfully!";
     		    $location.path('/bloglist');
