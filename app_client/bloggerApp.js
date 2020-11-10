@@ -132,7 +132,10 @@ app.controller('listCtrl',['$http', '$scope', 'authentication',  function listCt
 	 vm.isLoggedIn = function() {
         	return authentication.isLoggedIn();
    	 }
-	
+
+	vm.correctUser = function() {
+		return authentication.currentUser().name;
+	}
 
 	getAllBlogs($http)
 		.then(function (data){
@@ -157,6 +160,8 @@ app.controller('addCtrl',[ '$http', '$location', 'authentication' , function add
 
 	data.blog_title = userForm.blog_title.value;
 	data.blog_text = userForm.blog_text.value;
+	data.blog_userName = authentication.currentUser().name;
+	data.blog_email = authentication.currentUser().email;
 
 	addOneBlog($http, data, authentication)
 		.then(function successCallBack(data) {

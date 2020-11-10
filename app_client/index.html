@@ -43,9 +43,9 @@
 							<div class="card-body">
 								<h5 class="card-title">{{blog.blog_title}}</h5>
 								<p class="card-text">{{blog.blog_text}}</p>
-								<p class="card-text"><i>{{blog.createdOn | date:'short' }}</i></p>
-								<a ng-show="vm.isLoggedIn()" href="/blogedit/{{blog._id}}" class="card-link"><i class="fas fa-edit"></i></a>
-								<a ng-show="vm.isLoggedIn()" href="/blogdelete/{{blog._id}}" class="card-link"><i class="fas fa-trash-alt"></i></a>
+								<p class="card-text"> Published by: <b>{{blog.blog_userName}}</b> on <i>{{blog.createdOn | date:'short' }}</i></p>
+								<a ng-show="vm.isLoggedIn() && vm.correctUser() === blog.blog_userName" href="/blogedit/{{blog._id}}" class="card-link"><i class="fas fa-edit"></i></a>
+								<a ng-show="vm.isLoggedIn() && vm.correctUser() === blog.blog_userName" href="/blogdelete/{{blog._id}}" class="card-link"><i class="fas fa-trash-alt"></i></a>
 							</div>
 						</div>
 					</div>
