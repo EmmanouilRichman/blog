@@ -103,15 +103,22 @@ app.config(function ($locationProvider, $routeProvider) {
 	})
 
 	.when('/register', {
-        templateUrl: '/common/auth/register.html',
-        controller: 'registerCtrl',
-        controllerAs: 'vm'
+        	templateUrl: '/common/auth/register.html',
+        	controller: 'registerCtrl',
+        	controllerAs: 'vm'
       })
+       .when('/chat', {
+		templateUrl: 'pages/chat.html',
+	        controller: 'chatCtrl',
+	        controllerAs: 'vm'
 
-     	.when('/login', {
-        templateUrl: '/common/auth/login.html',
-        controller: 'loginCtrl',
-        controllerAs: 'vm'
+
+       })
+
+        .when('/login', {
+                templateUrl: '/common/auth/login.html',
+        	controller: 'loginCtrl',
+        	controllerAs: 'vm'
       })
 
       .otherwise({redirectTo: '/'});
@@ -266,7 +273,17 @@ app.controller('loginCtrl', [ '$http', '$location', 'authentication', function l
         };
  }]);
 
-app.controller('registerCtrl', [ '$http', '$location', 'authentication', function registerCtrl($htttp, $location, authentication) {
+app.controller('chatCtrl', ['$http', '$location', 'authentication', function chatCtrl($http, $location, authentication){
+	var vm = this;
+	vm.title = 'Chat';
+	vm.message = 'Chat with users on the site!';
+
+
+
+
+}]);
+
+app.controller('registerCtrl', [ '$http', '$location', 'authentication', function registerCtrl($http, $location, authentication) {
     var vm = this;
 
     vm.title = 'Create a new Blogger account'
