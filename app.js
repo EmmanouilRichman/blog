@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan')
 var bodyParser = require('body-parser');
 var passport = require('passport');
+var socketIO = require("socket.io");
 require('./app_api/models/db');
 require('./app_api/config/passport');
 

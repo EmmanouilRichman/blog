@@ -4,6 +4,8 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
    		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Anton&family=Dancing+Script&family=Goldman:wght@700&family=Montserrat&display=swap" rel="stylesheet">	
 		<script
       		src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.1/angular.min.js"
       		integrity="sha512-QFmqHpmYymVcJudvGsU3IDBfwnTOdfmY42YUwyORin2namhG6FCku8MiSc6igF2OIwChlEuFkvuwNo6pbMOUSg=="
@@ -13,6 +15,7 @@
       		integrity="sha512-pW5u94XNfb4HGKqQ9XUdZzAlfGSPWkha6VYghlIGqCBNlYqyPt1wo5m8jf2So8mNTodVwj1CQIayRP+x2Q5c+g=="
       		crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.28/angular-ui-router.min.js"> </script>
+			
   	</head>
   	<body>
 		<!-- Navigation -->
@@ -24,8 +27,8 @@
 		<script type="text/ng-template" id="pages/home.html">
 			<div class="container">
 	   	 		<div class = jumbotron>
-					<h1>{{vm.title}}</h1>
-					<h4>{{vm.message}}</h4>
+					<h1 class="title">{{vm.title}}</h1>
+					<h4 class="message">{{vm.message}}</h4>
 	    			</div>
    			 </div>
    	 	</script>
@@ -33,8 +36,8 @@
 		<script type="text/ng-template" id="pages/bloglist.html">
 			<div class="container">
 				<div class= jumbotron>
-					<h1>{{vm.title}}</h1>
-					<h4>{{vm.message}}</h4>
+					<h1 class="title">{{vm.title}}</h1>
+					<h4 class="message">{{vm.message}}</h4>
 				</div>
 			
 			 <div class='row'>
@@ -44,8 +47,14 @@
 								<h5 class="card-title">{{blog.blog_title}}</h5>
 								<p class="card-text">{{blog.blog_text}}</p>
 								<p class="card-text"> Published by: <b>{{blog.blog_userName}}</b> on <i>{{blog.createdOn | date:'short' }}</i></p>
-								<a ng-show="vm.isLoggedIn() && vm.correctUser() === blog.blog_userName" href="/blogedit/{{blog._id}}" class="card-link"><i class="fas fa-edit"></i></a>
-								<a ng-show="vm.isLoggedIn() && vm.correctUser() === blog.blog_userName" href="/blogdelete/{{blog._id}}" class="card-link"><i class="fas fa-trash-alt"></i></a>
+								<div class="card-buttons">
+									<div class="edit-button">
+										<a  ng-show="vm.isLoggedIn() && vm.correctUser() === blog.blog_userName" href="/blogedit/{{blog._id}}" class="card-link"><i class="fas fa-edit"></i></a>
+									</div>
+									<div class="delete-button">
+										<a  ng-show="vm.isLoggedIn() && vm.correctUser() === blog.blog_userName" href="/blogdelete/{{blog._id}}" class="card-link"><i class="fas fa-trash-alt"></i></a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -56,8 +65,8 @@
 		<script type="text/ng-template" id="pages/blogadd.html">
 			<div class = "container">
 	    			<div class = "jumbotron">
-					<h1>{{vm.title}}</h1>
-					<h4>{{vm.message}}</h4>
+					<h1 class="title">{{vm.title}}</h1>
+					<h4 class="message">{{vm.message}}</h4>
 	    		</div>
 			<form name="userForm" ng-Controller="addCtrl" ng-submit="vm.onSubmit()">
   				<div class="form-group">
@@ -76,8 +85,8 @@
 		<script type="text/ng-template" id="pages/blogdelete.html">
 			<div class = "container">
 	    			<div class="jumbotron">
-					<h1>{{vm.title}}</h1>
-					<h4>{{vm.message}}</h4>
+					<h1 class="title">{{vm.title}}</h1>
+					<h4 class="message">{{vm.message}}</h4>
 				</div>
 					<form name="userForm" ng-Controller="deleteCtrl" ng-submit="vm.onSubmit()">
 						<div class="form-group">
@@ -100,8 +109,8 @@
 		<script type="text/ng-template" id="pages/blogedit.html">
 			<div class = "container">
 	    			<div class="jumbotron">
-    					<h1>{{vm.title}}</h1>
-					<h4>{{vm.message}}</h4>
+    					<h1 class="title">{{vm.title}}</h1>
+					<h4 class="message">{{vm.message}}</h4>
 	   			 </div>
 
 	    		<form name="userForm" ng-Controller="editCtrl" ng-submit="vm.onSubmit()">

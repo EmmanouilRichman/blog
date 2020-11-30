@@ -1,6 +1,64 @@
 body{
 	text-align: center;
+	background-color: #5ADBff;
 }
+
+.nav-item{
+	transition: all 0.2s ease-in-out;
+}
+
+.navbar a{
+	color:white:
+	outline: none;
+}
+
+.navbar a:hover{
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+.title{
+	font-family: 'Goldman', cursive;
+
+}
+
+.message{
+	font-family: 'Dancing Script', cursive;
+}
+
+
+
+.card-title{
+	font-family: 'Anton', sans-serif;
+}
+
+.card-text{
+	font-family: 'Montserrat', sans-serif;
+}
+
+.card-buttons{
+	display: flex;
+	justify-content: space-around;
+};
+
+.edit-button{
+	transition: all 0.2s ease-in-out;
+}
+
+.edit-button:hover{
+	cursor: pointer;
+	transform: scale(2.0);
+}
+
+.delete-button{
+	transition: all 0.2s ease-in-out;
+}
+
+.delete-button:hover{
+	cursor: pointer;
+	transform: scale(2.0);
+}
+
 
 div.form
 {
