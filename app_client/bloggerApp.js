@@ -273,14 +273,20 @@ app.controller('loginCtrl', [ '$http', '$location', 'authentication', function l
         };
  }]);
 
-app.controller('chatCtrl', ['$http', '$location', 'authentication', function chatCtrl($http, $location, authentication){
+app.controller('chatCtrl', ['$http', '$location', '$scope', 'authentication', function chatCtrl($http, $location, $scope, authentication){
 	var vm = this;
 	vm.title = 'Chat';
 	vm.message = 'Chat with users on the site!';
 
-
-
-
+	getAllChats($http, authentication)
+	  .then(function(data){
+  	    $scope.chat = data.data;
+            console.log(data);
+	    vm.message = "Chat away..."
+	  },
+          function(e){
+	 
+	  });
 }]);
 
 app.controller('registerCtrl', [ '$http', '$location', 'authentication', function registerCtrl($http, $location, authentication) {
@@ -360,5 +366,9 @@ function addOneBlog($http, data, authentication) {
 }
 
 function deleteOneBlog($http, blogid, authentication) {
-    return $http.delete('/api/blogs/' + blogid, { headers: { Authorization: 'Bearer '+ authentication.getToken() }});
+    return $http.delete('/api/blogs/' + blogid, { headers: { Authorization: 'Bearer '+ authentication.getToken()}});
+}
+
+function getAllChats($http, authentication){
+	return $http.get('/api/chat', {headers: {Authorization: 'Bearer ' + authentication.getToken()}});
 }
